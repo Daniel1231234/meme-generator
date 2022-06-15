@@ -2,5 +2,12 @@
 
 function createCanvas() {
   gCanvas = document.querySelector("canvas")
-  gCtx = gElCanvas.getContext("2d")
+  gCtx = gCanvas.getContext("2d")
+  resizeCanvas()
 }
+
+function onSetText(val) {
+  console.log(val)
+}
+
+function onChangeTextSize() {}

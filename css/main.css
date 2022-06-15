@@ -1,7 +1,7 @@
 @import 'typography.css';
+@import 'helpers.css';
 @import 'base.css';
 @import 'layout.css';
-@import 'helpers.css';
 @import 'header.css';
 @import 'editor.css';
 @import 'gallery.css';

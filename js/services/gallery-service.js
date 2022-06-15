@@ -123,5 +123,22 @@ var gImgs = [
 ]
 
 function getImages() {
+  // if (gFilterBy) {
+  //   var imgs = []
+  //   gImgs.forEach(img =>
+  //     return)
+  // }
   return gImgs
+}
+
+function setSelectedImg(id) {
+  gMeme.selectedImgId = id
+}
+
+function setFilterImg(val) {
+  gFilterBy = val
+}
+
+function getKeyWords() {
+  return gKeywordSearchCountMap
 }

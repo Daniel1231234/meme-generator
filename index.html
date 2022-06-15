@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+<!-- https://daniel1231234.github.io/meme-generator/ -->
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,23 +38,44 @@
                     </select>
                 </datalist>
             </div>
-            <div class="keywords"></div>
+            <div class="keywords-container"></div>
             <button onclick="onShowMoreKeywords()"></button>
         </nav>
         <div class="img-container "></div>
     </main>
 
-    <section class="editor">
+    <section class="editor hidden main-layout">
         <div class="canvas-container">
-            <canvas width="450" height="500"></canvas>
+            <canvas width="500" height="500"></canvas>
         </div>
-        <div class="edit-panel">
+
+        <div class="edit-area">
             <input type="text" class="content-edit" placeholder="Text goes here" oninput="onSetText(this.value)" />
-            <div class="change-lines">
-                <button class="switch-line"></button>
-                <button class="switch-line"></button>
-                <button class="switch-line"></button>
+
+            <div class="edit-lines">
+                <button class="btn-edit btn-switch-line" onclick="onSwitchLine()">Switch line</button>
+                <button class="btn-edit btn-add-line" onclick="onAddLine()">Add line</button>
+                <button class="btn-edit btn-delete-line" onclick="onDeleteLine()">Delete line</button>
             </div>
+
+            <div class="text-edit">
+                <button onclick="onChangeTextSize()">+</button>
+                <button onclick="onChangeTextSize()">-</button>
+                <button onclick="onChangeTextAlignment()">left</button>
+                <button onclick="onChangeTextAlignment()">center</button>
+                <button onclick="onChangeTextAlignment()">right</button>
+                <select onchange="changeFontFamily(this.value)" class="font-select" name="font">
+                    <option value="impact">Impact</option>
+                    <option value="impact">Ariel</option>
+                    <option value="impact">David</option>
+                </select>
+                <input type="color" onchange="onChangeStrokeColor(this.value)" name="stroke-color">
+                <input type="color" onchange="onChangeColor(this.value)" name="fill-color">
+            </div>
+
+            <div class="emojis-area"></div>
+
+            <!----- download and share buttons -->
 
         </div>
     </section>
