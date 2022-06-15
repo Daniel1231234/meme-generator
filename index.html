@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Meme Generator</title>
+</head>
+
+<body onload="init()">
+    <header class="header-container main-layout">
+        <img class="logo" src="images/LOGO.png" alt="logo" />
+        <button class="hamburger hidden" onclick="onToggleMenu()"></button>
+        <nav class="navbar">
+            <button class="btn btn-gallery" onclick="moveToPage()">Gallery</button>
+            <button class="btn btn-about" onclick="moveToPage()">About</button>
+        </nav>
+    </header>
+
+    <main class="main-content main-layout">
+        <nav class="filter">
+            <div class="search-area">
+                <input type="text" list="keywords" class="search-input" oninput="onFilterImgs(this.value)"
+                    placeholder="Search...">
+                <datalist id="keywords">
+                    <select name="keywords" id="">
+                        <option value="funny"></option>
+                        <option value="men"></option>
+                        <option value="animal"></option>
+                        <option value="politics"></option>
+                        <option value="celebrity"></option>
+                        <option value="cute"></option>
+                    </select>
+                </datalist>
+            </div>
+            <div class="keywords"></div>
+            <button onclick="onShowMoreKeywords()"></button>
+        </nav>
+        <div class="img-container "></div>
+    </main>
+
+    <section class="editor">
+        <div class="canvas-container">
+            <canvas width="450" height="500"></canvas>
+        </div>
+        <div class="edit-panel">
+            <input type="text" class="content-edit" placeholder="Text goes here" oninput="onSetText(this.value)" />
+            <div class="change-lines">
+                <button class="switch-line"></button>
+                <button class="switch-line"></button>
+                <button class="switch-line"></button>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <img class="logo hidden" src="images/LOGO.png" alt="logo" />
+            <small>Copyright@</small>
+        </div>
+    </footer>
+
+    <script src="js/utils.js"></script>
+    <script src="js/services/storage-service.js"></script>
+    <script src="js/services/canvas.service.js"></script>
+    <script src="js/services/editor-service.js"></script>
+    <script src="js/services/gallery-service.js"></script>
+    <script src="js/controllers/main-controller.js"></script>
+    <script src="js/controllers/editor-controller.js"></script>
+</body>
+
+</html>

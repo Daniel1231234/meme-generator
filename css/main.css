@@ -1,0 +1,16 @@
+@import 'typography.css';
+@import 'base.css';
+@import 'layout.css';
+@import 'helpers.css';
+@import 'header.css';
+@import 'editor.css';
+@import 'gallery.css';
+
+:root {
+    /* MAIN*/
+    --clr1: #383b42;
+    /* SEARCH INPUT*/
+    --clr2: #22252c;
+    /*body */
+    --clr3: #22252c;
+}

@@ -1,0 +1,29 @@
+.main-content {
+    background-color: var(--clr1);
+    border-radius: 50px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 20px;
+    width: 90%;
+    min-height: 100vh;
+}
+
+.gallery-img {
+    width: 100%;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px 2px #1a1a1a;
+    transition: 0.4s;
+}
+
+.filter {
+    margin-top: 20px;
+}
