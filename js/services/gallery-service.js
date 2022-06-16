@@ -15,19 +15,6 @@ var gKeywordSearchCountMap = {
   toystory: 1,
 }
 
-var gMeme = {
-  selectedImgId: 1,
-  selectedLineIdx: 1,
-  lines: [
-    {
-      txt: "say what?",
-      size: 20,
-      align: "center",
-      color: "black",
-    },
-  ],
-}
-
 var gImgs = [
   {
     id: 1,
@@ -123,11 +110,12 @@ var gImgs = [
 ]
 
 function getImages() {
-  // if (gFilterBy) {
-  //   var imgs = []
-  //   gImgs.forEach(img =>
-  //     return)
-  // }
+  if (gFilterBy) {
+    // var filterImgs = []
+    let imgs = gImgs.filter((img) => img.keywords.includes(gFilterBy))
+    // filterImgs.push(img)
+    return imgs
+  }
   return gImgs
 }
 
@@ -136,9 +124,19 @@ function setSelectedImg(id) {
 }
 
 function setFilterImg(val) {
-  gFilterBy = val
+  gFilterBy = val === "all" ? "" : val.toLowerCase()
 }
 
 function getKeyWords() {
   return gKeywordSearchCountMap
+}
+
+function loadImageFromInput(ev, onImageReady) {
+  var reader = new FileReader()
+  reader.onload = function (event) {
+    var img = new Image()
+    img.src = event.target.result
+    img.onload = onImageReady.bind(null, img)
+  }
+  reader.readAsDataURL(ev.target.files[0])
 }

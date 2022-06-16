@@ -4,7 +4,7 @@
     padding: 5px;
     justify-content: space-between;
     align-items: center;
-    height: 60px;
+    height: 11vh;
     margin-top: 20px;
     border-radius: 50px;
     background: linear-gradient(90deg,
@@ -21,9 +21,9 @@ header .btn {
     background-color: unset;
     color: white;
     font-size: 1.3rem;
-    border-radius: 50%;
+    border-radius: 35px;
     line-height: 2.5rem;
-    padding: 0 7px;
+    padding: 7px;
 }
 
 .btn-about {
@@ -36,5 +36,4 @@ header .btn {
     color: rgb(44 181 108);
     box-shadow: 0px 2px 3px 2px rgb(0 0 0 / 23%);
     transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
-
 }

@@ -10,23 +10,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/main.css">
     <title>Meme Generator</title>
+    <script src="https://kit.fontawesome.com/8f8c38fd6d.js" crossorigin="anonymous"></script>
 </head>
 
 <body onload="init()">
     <header class="header-container main-layout">
-        <img class="logo" src="images/LOGO.png" alt="logo" />
+        <img class="logo" src="images/LOGO.png" alt="logo" onclick="moveToGallery()" />
         <button class="hamburger hidden" onclick="onToggleMenu()"></button>
         <nav class="navbar">
-            <button class="btn btn-gallery" onclick="moveToPage()">Gallery</button>
-            <button class="btn btn-about" onclick="moveToPage()">About</button>
+            <button class="btn btn-gallery" onclick="moveToGallery()">Gallery</button>
+            <button class="btn btn-about" onclick="moveToAbout()">About</button>
         </nav>
     </header>
 
     <main class="main-content main-layout">
         <nav class="filter">
-            <div class="search-area">
-                <input type="text" list="keywords" class="search-input" oninput="onFilterImgs(this.value)"
+            <div class="search-area flex">
+                <input type="search" list="keywords" class="search-input" oninput="onFilterImgs(this.value)"
                     placeholder="Search...">
+
                 <datalist id="keywords">
                     <select name="keywords" id="">
                         <option value="funny"></option>
@@ -37,11 +39,11 @@
                         <option value="cute"></option>
                     </select>
                 </datalist>
+                <div class="keywords-container"></div>
             </div>
-            <div class="keywords-container"></div>
-            <button onclick="onShowMoreKeywords()"></button>
+            <!-- <button onclick="onShowMoreKeywords()"></button> -->
         </nav>
-        <div class="img-container "></div>
+        <div class="img-container"></div>
     </main>
 
     <section class="editor hidden main-layout">
@@ -53,37 +55,63 @@
             <input type="text" class="content-edit" placeholder="Text goes here" oninput="onSetText(this.value)" />
 
             <div class="edit-lines">
-                <button class="btn-edit btn-switch-line" onclick="onSwitchLine()">Switch line</button>
-                <button class="btn-edit btn-add-line" onclick="onAddLine()">Add line</button>
-                <button class="btn-edit btn-delete-line" onclick="onDeleteLine()">Delete line</button>
+                <button class="btn-edit btn-switch-line" onclick="onSwitchLine()"> <i
+                        class="fa fa-solid fa-arrows-up-down"></i></button>
+                <button class="btn-edit btn-add-line" onclick="onAddLine()"> <i
+                        class="fa fa-solid fa-plus"></i></button>
+                <button class="btn-edit btn-delete-line" onclick="onDeleteLine()"> <i
+                        class="fa fa-light fa-trash-can"></i></button>
             </div>
 
             <div class="text-edit">
-                <button onclick="onChangeTextSize()">+</button>
-                <button onclick="onChangeTextSize()">-</button>
-                <button onclick="onChangeTextAlignment()">left</button>
-                <button onclick="onChangeTextAlignment()">center</button>
-                <button onclick="onChangeTextAlignment()">right</button>
-                <select onchange="changeFontFamily(this.value)" class="font-select" name="font">
+                <button class="btn-txt-edit" onclick="onChangeTextSize(5)">
+                    <i class="fa fa-solid fa-arrow-up-a-z"></i>
+                </button>
+                <button class="btn-txt-edit" onclick="onChangeTextSize(-5)">
+                    <i class="fa fa-solid fa-arrow-down-a-z"></i>
+                </button>
+                <button class="btn-txt-edit" onclick="onChangeTextAlign('right')">
+                    <i class="fa fa-solid fa-align-left"></i>
+                </button>
+                <button class="btn-txt-edit" onclick="onChangeTextAlign('center')">
+                    <i class="fa fa-solid fa-align-center"></i>
+                </button>
+                <button class="btn-txt-edit" onclick="onChangeTextAlign('left')">
+                    <i class="fa fa-solid fa-align-right"></i>
+                </button>
+                <select onchange="onChangeFontFamily(this.value)" class="font-select" name="font">
                     <option value="impact">Impact</option>
-                    <option value="impact">Ariel</option>
-                    <option value="impact">David</option>
+                    <option value="Ariel">Ariel</option>
+                    <option value="David">David</option>
                 </select>
-                <input type="color" onchange="onChangeStrokeColor(this.value)" name="stroke-color">
-                <input type="color" onchange="onChangeColor(this.value)" name="fill-color">
+                <input class="fa fa-solid fa-paintbrush btn-edit clr" type="color"
+                    onchange="onChangeStrokeColor(this.value)" name="stroke-color">
+                <input class="fa fa-solid fa-fill-drip btn-edit clr" type="color" onchange="onChangeColor(this.value)"
+                    name="fill-color">
             </div>
 
             <div class="emojis-area"></div>
 
-            <!----- download and share buttons -->
-
+            <div class="dsp-btns-container">
+                <button class="dsp-btn share-btn" onclick="onShareMeme(this)"><i class="fa-solid fa-share-nodes"></i>
+                    Share</button>
+                <button class="dsp-btn save-btn" onclick="onSave()"><i class="fa fa-solid fa-box-archive"></i>
+                    Save</button>
+                <button class="dsp-btn download-btn"><a href="#" onclick="onDownloadMeme(this)"
+                        download="my-meme.jpg"><i class="fa-solid fa-download"></i>
+                        Download</a></button>
+            </div>
+            <div class="share-facebook">
+                <p class="user-msg hidden"></p>
+                <div class="share-container"></div>
+            </div>
         </div>
     </section>
 
-    <footer>
+    <footer class="main-layout">
         <div class="footer-container">
-            <img class="logo hidden" src="images/LOGO.png" alt="logo" />
-            <small>Copyright@</small>
+            <!-- <img class="logo" src="images/LOGO.png" alt="logo" /> -->
+            <small>© Daniel Shechter<br> 2022</small>
         </div>
     </footer>
 

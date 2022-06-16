@@ -19,3 +19,15 @@ body {
     cursor: pointer;
     width: 10rem;
 }
+
+.footer-container {
+    height: 13vh;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
