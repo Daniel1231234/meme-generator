@@ -7,9 +7,8 @@ var gIsClicked
 
 const gTouchEvs = ["touchstart", "touchmove", "touchend"]
 
-function onInitMeme(img) {
-  // console.log(img)
-  setLine()
+function onInitMeme(img, lineIdx) {
+  setSelectedLine(lineIdx)
   createCanvas()
   resizeCanvas()
   onSetLinePos()
@@ -24,7 +23,10 @@ function onSetText(val) {
 }
 
 // manipulate lines
-function onSwitchLine() {}
+function onSwitchLine() {
+  switchLine()
+  renderMeme(gCurrImg)
+}
 
 function onAddLine() {
   addLine("new line")
@@ -146,11 +148,10 @@ function addTouchListeners() {
 }
 
 function renderMeme(img) {
-  // console.log(img)
   gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
   const meme = getMeme()
   const lines = meme.lines
-  lines.forEach((line) => makeLine(line))
+  lines.forEach((line) => drawLine(line))
   markLine(gMeme.lines[gMeme.selectedLineIdx])
 }
 
@@ -160,7 +161,6 @@ function onSetLinePos() {
   meme.lines[meme.selectedLineIdx].pos = {
     x: gCanvas.width / 2,
     y: gCanvas.height / 5,
-    // y: 100,
   }
   setLinePos(meme.lines[meme.selectedLineIdx].pos)
 }
@@ -191,6 +191,16 @@ function onShareMeme() {
   doUploadImg(imgDataUrl, onSuccess)
 }
 
+function onSave() {
+  resetSelectedLine()
+  renderMeme(gCurrImg)
+  const meme = gCanvas.toDataURL("image/jpeg")
+  console.log(meme)
+  saveMemesToStorage(meme)
+  renderSavedMemes()
+  moveToSaved()
+}
+
 function doUploadImg(imgDataUrl, onSuccess) {
   const formData = new FormData()
   formData.append("img", imgDataUrl)
@@ -208,4 +218,25 @@ function doUploadImg(imgDataUrl, onSuccess) {
     .catch((err) => {
       console.error(err)
     })
+}
+
+//render emojis
+
+function renderEmojies() {
+  var emojis = getEmojis()
+  var strPaddles = `<button class="left-paddle paddle hidden"> &larr; </button> <button class="right-paddle paddle"> &rarr; </button>`
+  var emojisHTMLs = emojis.map(
+    (emoji) =>
+      `<button class="emoji" onclick="onAddEmoji(this, '${emoji}')">
+    ${emoji} </button>
+    `
+  )
+  document.querySelector(".emojis-area").innerHTML = emojisHTMLs.join("")
+  document.querySelector(".emojis-area").innerHTML += strPaddles
+}
+
+function onAddEmoji(elBtn, emoji) {
+  console.log(emoji)
+  addEmoji(emoji)
+  renderMeme(gCurrImg)
 }

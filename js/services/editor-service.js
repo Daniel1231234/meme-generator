@@ -1,5 +1,6 @@
 "use strict"
 
+const STORAGE_KEY = "savedMemesDB"
 var gLineMarkSize
 var gEmojies = ["😎", "👊", "🎆", "🌈"]
 var gMeme = {
@@ -16,21 +17,10 @@ var gMeme = {
       isSelected: false,
       pos: {},
     },
-    {
-      txt: "Second line Example",
-      size: 50,
-      align: "center",
-      color: "white",
-      strokeColor: "black",
-      fontFamily: "impact",
-      isSelected: false,
-      pos: {},
-    },
   ],
 }
 
-function makeLine(line) {
-  // console.log(line)
+function drawLine(line) {
   gCtx.textBaseline = "middle"
   gCtx.textAlign = line.align
   gCtx.strokeStyle = line.strokeColor
@@ -44,6 +34,11 @@ function makeLine(line) {
 function moveLine(diffX, diffY) {
   gMeme.lines[gMeme.selectedLineIdx].pos.x += diffX
   gMeme.lines[gMeme.selectedLineIdx].pos.y += diffY
+}
+
+function switchLine(toLineIdx = gMeme.selectedLineIdx + 1) {
+  gMeme.selectedLineIdx = toLineIdx
+  gMeme.selectedLineIdx %= gMeme.lines.length
 }
 
 function markLine(line) {
@@ -82,12 +77,14 @@ function isLineClicked(clickedPos) {
       return line
     }
   })
-  console.log(clickedLine)
+  // console.log(clickedLine)
   return clickedLine
 }
 
-function setSelectedLine(idx) {
+function setSelectedLine(idx = 0) {
   // console.log(idx)
+  // resetSelectedLine()
+  gMeme.lines[idx].isSelected = true
   gMeme.selectedLineIdx = idx
 }
 
@@ -121,13 +118,13 @@ function changeColor(fillColor) {
   gMeme.lines[gMeme.selectedLineIdx].color = fillColor
 }
 
-function addLine(txt) {
+function addLine(txt, size = 50, color = "white", strokeColor = "black") {
   const line = {
     txt,
-    size: 50,
+    size,
     align: "center",
-    color: "white",
-    strokeColor: "black",
+    color,
+    strokeColor,
     fontFamily: "impact",
     isSelected: false,
     pos: {
@@ -135,11 +132,51 @@ function addLine(txt) {
       y: gCanvas.height / 2,
     },
   }
+  console.log(line)
   gMeme.lines.push(line)
   gMeme.selectedLineIdx = gMeme.lines.length - 1
-  makeLine(line)
+  drawLine(line)
+  markLine(line)
+}
+
+function resizeCanvas() {
+  var elContainer = document.querySelector(".canvas-container")
+  gCanvas.width = elContainer.offsetWidth
+  gCanvas.height = 500
+}
+
+function resetSelectedLine(idx = 0) {
+  gMeme.lines[idx].isSelected = false
+  gMeme.selectedLineIdx = -1
+
+  // gMeme.lines.forEach((_, idx) => {
+  //   gMeme.lines[idx].isSelected = false
+  // })
+  // gMeme.selectedLineIdx = -1
 }
 
 function deleteLine() {
   gMeme.lines.splice(gMeme.selectedLineIdx, 1)
+}
+
+function getEmojis() {
+  return gEmojies
+}
+
+function addEmoji(strEmoji) {
+  addLine(strEmoji)
+}
+
+function saveMemesToStorage(meme) {
+  var savedMemes = loadFromStorage(STORAGE_KEY)
+  if (!savedMemes || savedMemes.length === null) {
+    savedMemes = [meme]
+    saveToStorage(STORAGE_KEY, savedMemes)
+  }
+  savedMemes.push(meme)
+  saveToStorage(STORAGE_KEY, savedMemes)
+}
+
+function getSavedMemes() {
+  return loadFromStorage(STORAGE_KEY)
 }

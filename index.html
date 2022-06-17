@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<!-- https://daniel1231234.github.io/meme-generator/ -->
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,16 +13,17 @@
 <body onload="init()">
     <header class="header-container main-layout">
         <img class="logo" src="images/LOGO.png" alt="logo" onclick="moveToGallery()" />
-        <button class="hamburger hidden" onclick="onToggleMenu()"></button>
-        <nav class="navbar">
+        <button class="fa fa-solid fa-bars hamburger" aria-hidden="true" onclick="onToggleMenu()"></button>
+        <nav class="navbar ">
             <button class="btn btn-gallery" onclick="moveToGallery()">Gallery</button>
             <button class="btn btn-about" onclick="moveToAbout()">About</button>
+            <button class="btn btn-saved-memes" onclick="moveToSaved()">MyMemes</button>
         </nav>
     </header>
 
     <main class="main-content main-layout">
         <nav class="filter">
-            <div class="search-area flex">
+            <div class="search-area">
                 <input type="search" list="keywords" class="search-input" oninput="onFilterImgs(this.value)"
                     placeholder="Search...">
 
@@ -43,7 +41,8 @@
             </div>
             <!-- <button onclick="onShowMoreKeywords()"></button> -->
         </nav>
-        <div class="img-container"></div>
+        <button class="btn-flexible" onclick="onGenerateRanMeme()">Suprise me</button>
+        <div class="img-container main-layout"></div>
     </main>
 
     <section class="editor hidden main-layout">
@@ -83,6 +82,8 @@
                     <option value="impact">Impact</option>
                     <option value="Ariel">Ariel</option>
                     <option value="David">David</option>
+                    <option value="Cursive">Cursive</option>
+                    <option value="Verdana">Verdana</option>
                 </select>
                 <input class="fa fa-solid fa-paintbrush btn-edit clr" type="color"
                     onchange="onChangeStrokeColor(this.value)" name="stroke-color">
@@ -101,6 +102,7 @@
                         download="my-meme.jpg"><i class="fa-solid fa-download"></i>
                         Download</a></button>
             </div>
+
             <div class="share-facebook">
                 <p class="user-msg hidden"></p>
                 <div class="share-container"></div>
@@ -108,9 +110,16 @@
         </div>
     </section>
 
+    <section class="saved-container hidden main-layout">
+        <div class="saved-header">
+            <h1>Saved Memes</h1>
+        </div>
+        <div class="saved-memes-container"></div>
+    </section>
+
+    <div onclick="onToggleMenu()" class="backdrop"></div>
     <footer class="main-layout">
         <div class="footer-container">
-            <!-- <img class="logo" src="images/LOGO.png" alt="logo" /> -->
             <small>© Daniel Shechter<br> 2022</small>
         </div>
     </footer>

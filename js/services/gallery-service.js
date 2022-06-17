@@ -2,6 +2,24 @@
 
 var gFilterBy
 
+const memesSentences = [
+  "I never eat falafel",
+  "DOMS DOMS EVERYWHERE",
+  "Stop Using i in for loops",
+  "Armed in knowledge",
+  'Js error "Unexpected String"',
+  "One does not simply write js",
+  "I`m a simple man i see vanilla JS, i click like!",
+  "JS, HTML,CSS?? Even my momma can do that",
+  "May the force be with you",
+  "I know JS",
+  "JS Where everything is made up and the rules dont matter",
+  "Not sure if im good at programming or good at googling",
+  "But if we could",
+  "JS what is this?",
+  "Write hello world , add to cv 7 years experienced",
+]
+
 var gKeywordSearchCountMap = {
   funny: 9,
   politics: 3,
@@ -109,7 +127,10 @@ var gImgs = [
   },
 ]
 
+var gFonts = ["impact", "Ariel", "David", "Cursive", "Verdana"]
+
 function getImages() {
+  // const keyWords = gImgs.filter((img) => img.keywords)
   if (gFilterBy) {
     // var filterImgs = []
     let imgs = gImgs.filter((img) => img.keywords.includes(gFilterBy))
@@ -124,19 +145,54 @@ function setSelectedImg(id) {
 }
 
 function setFilterImg(val) {
-  gFilterBy = val === "all" ? "" : val.toLowerCase()
+  // gFilterBy = val === "all" ? "" : val.toLowerCase()
+  if (val === "all") {
+    gFilterBy = ""
+    return
+  }
+
+  for (var key in gKeywordSearchCountMap) {
+    var letters = key.split("")
+    letters.filter((letter) => letter === gFilterBy)
+  }
+  gFilterBy = val
+  console.log(gFilterBy)
 }
 
 function getKeyWords() {
   return gKeywordSearchCountMap
 }
 
-function loadImageFromInput(ev, onImageReady) {
-  var reader = new FileReader()
-  reader.onload = function (event) {
-    var img = new Image()
-    img.src = event.target.result
-    img.onload = onImageReady.bind(null, img)
-  }
-  reader.readAsDataURL(ev.target.files[0])
+// function loadImageFromInput(ev, onImageReady) {
+//   var reader = new FileReader()
+//   reader.onload = function (event) {
+//     var img = new Image()
+//     img.src = event.target.result
+//     img.onload = onImageReady.bind(null, img)
+//   }
+//   reader.readAsDataURL(ev.target.files[0])
+// }
+
+function getRandomImgIdx() {
+  var id = getRndomInt(gImgs[0].id, gImgs[gImgs.length - 1].id)
+  return id
+}
+
+function getRnadomLine() {
+  var randLineTxt = getRandArrStr(memesSentences)
+  // var randFont = getArrStr(gFonts)
+  var randColor = getRandomColor()
+  var randColorStroke = getRandomColor()
+  var randSize = getRndomInt(30, 70)
+  console.log(randLineTxt, randSize, randColor, randColor)
+
+  addLine(randLineTxt, randSize, randColor, randColorStroke)
+}
+
+function getRandArrStr(arr) {
+  var idxStart = arr.indexOf(arr[0])
+  var idxEnd = arr.indexOf(arr[arr.length - 1])
+  var idx = getRndomInt(idxStart, idxEnd)
+
+  return arr[idx]
 }

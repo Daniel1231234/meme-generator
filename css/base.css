@@ -4,12 +4,13 @@
 
 html {
     font-family: poppins-light;
-    ;
+
 }
 
 body {
     background-color: var(--clr3);
     margin: 0;
+    /* max-width: 1250px */
 }
 
 

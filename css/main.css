@@ -14,3 +14,136 @@
     /*body */
     --clr3: #22252c;
 }
+
+@media (max-width: 614px) {
+    .header-container {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+        height: 13vh;
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    .keywords-container {
+        margin-left: 0;
+        width: 97%;
+        padding-right: 5px;
+    }
+
+    .search-area {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .main-content {
+        width: 97%;
+        margin-top: 7px;
+        border-radius: 20px;
+    }
+
+    .main-layout {
+        margin-inline-start: 5px;
+        margin-inline-end: 5px;
+    }
+
+    .img-container {
+        margin: auto;
+        width: 95%;
+        grid-template-columns: 1fr 1fr;
+        margin-top: 1rem;
+    }
+
+    .filter {
+        margin: auto;
+        display: flex;
+        justify-content: center;
+    }
+
+    .editor {
+        flex-direction: column;
+        margin-top: 10px;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    canvas {
+        width: 400px;
+    }
+
+    .edit-area {
+        width: 400px;
+        margin-top: 3vh;
+    }
+
+}
+
+@media (min-width:614px) {
+    .editor {
+        margin: auto 20px auto 20px;
+    }
+
+    canvas {
+        width: 350px;
+        height: 350px;
+    }
+
+    .edit-area {
+        width: 350px;
+        height: 350px;
+    }
+}
+
+
+@media (min-width:770px) {
+    .backdrop {
+        display: none;
+    }
+
+    .hamburger {
+        display: none;
+        visibility: hidden;
+    }
+
+    .navbar {
+        flex-direction: row;
+        justify-content: space-evenly;
+        height: 100%;
+        width: 350px;
+        margin-inline-end: 50px;
+        position: unset;
+        background-color: unset;
+        transform: translate(0);
+        transition: transform .6s, box-shadow .6s;
+
+    }
+
+    canvas {
+        width: 400px;
+        height: 400px;
+    }
+
+    .edit-area {
+        width: 400px;
+        height: 400px;
+    }
+}
+
+@media (min-width: 1100px) {
+    .editor {
+        flex-direction: row;
+    }
+
+    canvas {
+        width: 500px;
+        height: 500px;
+    }
+
+    .edit-area {
+        width: 500px;
+        height: 500px
+    }
+}

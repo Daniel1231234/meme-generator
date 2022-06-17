@@ -3,6 +3,8 @@
     Justify-content: space-evenly;
     min-height: 78vh;
     align-items: center;
+    max-width: 1200px;
+    width: 100%;
 }
 
 
@@ -10,10 +12,11 @@ canvas {
     background-color: #fff;
     box-shadow: 0px 4px 0px 2px #505050, 0px 6px 8px 1px #767676, -2px -1px 0px 3px #505050, 0px 0px 11px 2px #767676;
     border-radius: 20px;
+    cursor: grab;
 }
 
 .edit-area {
-    box-shadow: inset -1px -4px 0px 0px #505050, inset 1px -6px 7px 0px #767676;
+    box-shadow: inset -4px -4px 0px 0px #3b3535, inset 1px -6px 7px 0px #767676;
     height: 500px;
     display: flex;
     flex-direction: column;
@@ -162,4 +165,28 @@ a {
     color: white;
     padding: 5px;
     font-size: 1.5rem;
+}
+
+.emojis-area {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 90%;
+    background-color: #fff;
+    border-radius: 50px;
+    border: none;
+    outline: none;
+    box-shadow: inset 0px 4px 2px white;
+
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+
+}
+
+.emojis-area button {
+    border: none;
+    font-size: 1.5rem;
+    background-color: #fff;
 }
