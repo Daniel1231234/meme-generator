@@ -23,11 +23,9 @@
         gap: 10px;
     }
 
-    .main-content {
-        /* width: 97%;
-        margin-top: 7px;
-        border-radius: 20px; */
 
+
+    .main-content {
         width: 100%;
         margin-top: 12px;
         border-radius: 19px;
@@ -37,7 +35,7 @@
 
     .btn-flexible {
         position: absolute;
-        font-size: 0.6rem;
+        font-size: 1rem;
         top: 4vh;
         right: 2vh;
     }

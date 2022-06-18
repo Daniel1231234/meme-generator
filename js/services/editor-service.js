@@ -14,7 +14,7 @@ function createMeme() {
       selectedLineIdx: 0,
       lines: [
         {
-          txt: "First line Example",
+          txt: "Example",
           size: 50,
           align: "center",
           color: "white",

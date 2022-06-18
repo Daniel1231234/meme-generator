@@ -49,3 +49,7 @@
     background-color: gold;
     color: var(--clr1)
 }
+
+.fa-upload {
+    text-align: center;
+}
