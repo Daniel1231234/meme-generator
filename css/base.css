@@ -10,9 +10,13 @@ html {
 body {
     background-color: var(--clr3);
     margin: 0;
+    line-height: 1.714285714285714;
     /* max-width: 1250px */
 }
 
+img {
+    width: 100%;
+}
 
 .logo {
     margin-inline-start: 10px;
@@ -30,5 +34,4 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
 }

@@ -3,21 +3,31 @@
 const STORAGE_KEY = "savedMemesDB"
 var gLineMarkSize
 var gEmojies = ["😎", "👊", "🎆", "🌈"]
-var gMeme = {
-  selectedImgId: 1,
-  selectedLineIdx: 0,
-  lines: [
-    {
-      txt: "First line Example",
-      size: 50,
-      align: "center",
-      color: "white",
-      strokeColor: "black",
-      fontFamily: "impact",
-      isSelected: false,
-      pos: {},
-    },
-  ],
+var gMeme
+
+createMeme()
+function createMeme() {
+  if (!gMeme) {
+    var meme = {
+      selectedImgId: 1,
+      selectedLineIdx: 0,
+      lines: [
+        {
+          txt: "First line Example",
+          size: 50,
+          align: "center",
+          color: "white",
+          strokeColor: "black",
+          fontFamily: "impact",
+          isSelected: false,
+          pos: {},
+        },
+      ],
+    }
+    gMeme = meme
+  }
+
+  return gMeme
 }
 
 function drawLine(line) {
@@ -74,6 +84,7 @@ function isLineClicked(clickedPos) {
       ) <=
       gCtx.measureText(line.txt).width / 2
     ) {
+      console.log("line pos: ", line.pos)
       return line
     }
   })
@@ -146,13 +157,13 @@ function resizeCanvas() {
 }
 
 function resetSelectedLine(idx = 0) {
-  gMeme.lines[idx].isSelected = false
-  gMeme.selectedLineIdx = -1
-
-  // gMeme.lines.forEach((_, idx) => {
-  //   gMeme.lines[idx].isSelected = false
-  // })
+  // gMeme.lines[idx].isSelected = false
   // gMeme.selectedLineIdx = -1
+
+  gMeme.lines.forEach((_, idx) => {
+    gMeme.lines[idx].isSelected = false
+  })
+  gMeme.selectedLineIdx = -1
 }
 
 function deleteLine() {

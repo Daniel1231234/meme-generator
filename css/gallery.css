@@ -24,13 +24,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .img-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
     gap: 20px;
-    width: 85%;
+    width: 90%;
     max-height: 100vh;
     overflow: scroll;
     overflow-x: hidden;
@@ -49,15 +50,15 @@
     margin-bottom: 1rem;
     margin-top: 1rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
 }
 
 .search-input {
-    width: 50%;
+    /* width: 50%; */
     border-radius: 50px;
     font-size: 1rem;
-    padding: 15px;
+    padding: 12px;
     border: none;
     outline: none;
     color: white;
@@ -66,17 +67,17 @@
 }
 
 .keywords-container {
+    width: 50%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     border: none;
     outline: none;
-    border-radius: 50px;
+    border-radius: 20px;
     background-color: #87898d;
     padding: 5px;
     box-shadow: -1px 2px 5px 1px #1a1a1a;
     flex-wrap: wrap;
-    margin-left: 2%;
 }
 
 .keywords-container button {
@@ -85,31 +86,95 @@
     outline: none;
     color: white;
     font-family: poppins-light;
-    margin-inline-start: 1rem;
+    /* margin-inline-start: 1rem; */
 }
 
 .search-area {
     justify-content: space-between;
     align-items: center;
-    width: 90%;
-    margin-inline-start: 40px;
+    width: 100%;
+
     display: flex;
 }
 
-.btn-flexible {
-    font-size: 1.1rem;
+/* .btn-flexible {
+    font-size: 1.3rem;
     border: none;
     outline: none;
-    border-radius: 20px;
     background-color: inherit;
     color: white;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     font-family: poppins-light;
 }
 
 .btn-flexible:hover {
     color: yellow;
+} */
+
+.nav-btn-choose {
+    /* position: relative; */
+    top: 0;
+    left: 40%;
 }
+
+nav ul li {
+    --c: goldenrod;
+    color: var(--c);
+    font-size: 14px;
+    border: 0.3em solid var(--c);
+    border-radius: 0.5em;
+    width: 10em;
+    height: 3em;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    text-align: center;
+    line-height: 3em;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: 0.5s;
+    margin: 1em;
+
+}
+
+nav ul li span {
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    background-color: var(--c);
+    transform: translateY(150%);
+    border-radius: 50%;
+    left: calc((var(--n) - 1) * 25%);
+    transition: 0.5s;
+    transition-delay: calc((var(--n) - 1) * 0.1s);
+    z-index: -1;
+}
+
+nav ul li:hover {
+    color: black;
+}
+
+nav ul li:hover span {
+    transform: translateY(0) scale(2);
+}
+
+nav ul li span:nth-child(1) {
+    --n: 1;
+}
+
+nav ul li span:nth-child(2) {
+    --n: 2;
+}
+
+nav ul li span:nth-child(3) {
+    --n: 3;
+}
+
+nav ul li span:nth-child(4) {
+    --n: 4;
+}
+
 
 .saved-container {
     height: 75vh;

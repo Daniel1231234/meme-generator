@@ -22,8 +22,16 @@
     </header>
 
     <main class="main-content main-layout">
+
         <nav class="filter">
             <div class="search-area">
+                <nav class="nav-btn-choose">
+                    <ul>
+                        <li class="btn-flexible" onclick="onGenerateRanMeme()">Suprise me
+                            <span></span><span></span><span></span><span></span>
+                        </li>
+                    </ul>
+                </nav>
                 <input type="search" list="keywords" class="search-input" oninput="onFilterImgs(this.value)"
                     placeholder="Search...">
 
@@ -41,8 +49,11 @@
             </div>
             <!-- <button onclick="onShowMoreKeywords()"></button> -->
         </nav>
-        <button class="btn-flexible" onclick="onGenerateRanMeme()">Suprise me</button>
-        <div class="img-container main-layout"></div>
+
+        <!-- <button class="btn-flexible" onclick="onGenerateRanMeme()">Suprise me</button> -->
+
+
+        <div class="img-container main-layout1"></div>
     </main>
 
     <section class="editor hidden main-layout">
