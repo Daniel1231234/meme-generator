@@ -5,6 +5,7 @@
     align-items: center;
     max-width: 1200px;
     width: 100%;
+    margin: auto;
 
 }
 
@@ -80,7 +81,7 @@ canvas {
 .text-edit {
     display: grid;
     grid-template-columns: repeat(5, 50px);
-    gap: 5px;
+    gap: 1rem;
     padding: 10px;
     border-radius: 16px;
     background-color: #19a59f;
@@ -148,6 +149,7 @@ a {
     margin-top: 30px;
     gap: 20px;
     display: grid;
+    justify-content: center;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     grid-template-areas:
@@ -180,23 +182,39 @@ a {
 .emojis-area {
     display: flex;
     justify-content: center;
-    gap: 0.5rem;
-    width: 90%;
-    background-color: #fff;
-    border-radius: 50px;
-    border: none;
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem;
+    background-color: #1e7cd3;
+    border: 2px solid white;
     outline: none;
-    box-shadow: inset 0px 4px 2px white;
-
-    /* white-space: nowrap;
+    border-radius: 20px;
+    white-space: nowrap;
+    overflow: scroll;
     overflow-x: auto;
     overflow-y: hidden;
-    -webkit-overflow-scrolling: touch; */
-
+    margin-top: 16px;
 }
+
+.emojis-area::-webkit-scrollbar-thumb {
+    background-color: #839AA8;
+    border-radius: 10px;
+    outline: 1px solid slategrey;
+}
+
+.emojis-area::-webkit-scrollbar {
+    width: 0.1em;
+}
+
+
+
+
+
 
 .emojis-area button {
     border: none;
     font-size: 1.5rem;
-    background-color: #fff;
+
+    background-color: inherit;
+    border-radius: 20px;
 }

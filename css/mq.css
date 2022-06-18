@@ -24,22 +24,30 @@
     }
 
     .main-content {
-        width: 97%;
+        /* width: 97%;
         margin-top: 7px;
-        border-radius: 20px;
+        border-radius: 20px; */
+
+        width: 100%;
+        margin-top: 12px;
+        border-radius: 19px;
+        margin-inline-start: auto;
+
     }
 
     .btn-flexible {
         position: absolute;
-        top: 2vh;
+        font-size: 0.6rem;
+        top: 4vh;
         right: 2vh;
     }
 
     .main-layout {
-        margin-inline-start: 10px;
-        margin-inline-end: 10px;
-        padding-left: 1.6rem;
-        padding-right: 1.6rem;
+        margin-inline-start: 0;
+        margin-inline-end: 0;
+        /* padding-left: 1.6rem;
+        padding-right: 1.6rem; 
+         width: 100%;  */
     }
 
     .img-container {
@@ -70,10 +78,7 @@
     .editor {
         flex-direction: column;
         margin-top: 1rem;
-        /* max-height: 100vh; */
-        overflow: scroll;
-        overflow-x: hidden;
-        overflow-y: auto;
+        padding-bottom: 16px;
     }
 
     .edit-area {
@@ -91,9 +96,8 @@
         padding: 2px;
     }
 
-    .edit-line {
-        padding: 5px;
-
+    .edit-lines {
+        padding: 10px;
     }
 
     .edit-lines button {
@@ -104,6 +108,7 @@
     .text-edit {
         margin-top: 5px;
         background-color: inherit;
+        gap: 1rem;
     }
 
     .text-edit button {
@@ -119,19 +124,20 @@
     .emojis-area {
         /* height: 100px; */
         margin-top: 10px;
-        padding: 10px;
         background-color: inherit;
         box-shadow: none;
+
     }
 
     .emojis-area button {
         border-radius: 10px;
-
+        font-size: 1.2rem;
+        padding: auto;
     }
 
     .dsp-btn {
         font-size: 1rem;
-        height: 40px;
+        height: 30px;
         width: 100px;
     }
 
@@ -175,9 +181,7 @@
         height: 100%;
     }
 
-
     .editor {
-
         flex-direction: row;
         margin-left: 1rem;
     }
@@ -203,7 +207,7 @@
     }
 
     .text-edit {
-        margin-top: 5px;
+        margin-top: 1rem;
         background-color: inherit;
     }
 
@@ -231,7 +235,10 @@
 
     .emojis-area button {
         border-radius: 10px;
+    }
 
+    .btn-flexible {
+        font-size: 0.8rem;
     }
 }
 
@@ -263,7 +270,9 @@
 
     }
 
-
+    .btn-flexible {
+        font-size: 1rem;
+    }
 
 
 

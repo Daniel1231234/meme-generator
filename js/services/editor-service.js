@@ -2,10 +2,11 @@
 
 const STORAGE_KEY = "savedMemesDB"
 var gLineMarkSize
-var gEmojies = ["😎", "👊", "🎆", "🌈"]
+var gEmojies = ["😎", "👊", "🎆", "🌈", "💩", "❤", "🔞", "💲", "🍕", "💃🏾"]
 var gMeme
 
 createMeme()
+
 function createMeme() {
   if (!gMeme) {
     var meme = {
@@ -30,17 +31,6 @@ function createMeme() {
   return gMeme
 }
 
-function drawLine(line) {
-  gCtx.textBaseline = "middle"
-  gCtx.textAlign = line.align
-  gCtx.strokeStyle = line.strokeColor
-  gCtx.fillStyle = line.color
-  gCtx.font = `${line.size}px ${line.fontFamily}`
-
-  gCtx.fillText(line.txt, line.pos.x, line.pos.y)
-  gCtx.strokeText(line.txt, line.pos.x, line.pos.y)
-}
-
 function moveLine(diffX, diffY) {
   gMeme.lines[gMeme.selectedLineIdx].pos.x += diffX
   gMeme.lines[gMeme.selectedLineIdx].pos.y += diffY
@@ -54,7 +44,7 @@ function switchLine(toLineIdx = gMeme.selectedLineIdx + 1) {
 function markLine(line) {
   if (!line) return
   const lineWidth = gCtx.measureText(line.txt).width + line.size
-  const lineHeight = line.size + 50
+  const lineHeight = line.size + 40
   gCtx.strokeStyle = "yellow"
   gCtx.strokeRect(
     line.pos.x - lineWidth / 2,
@@ -97,10 +87,6 @@ function setSelectedLine(idx = 0) {
   // resetSelectedLine()
   gMeme.lines[idx].isSelected = true
   gMeme.selectedLineIdx = idx
-}
-
-function setLinePos(linePos) {
-  gMeme.lines.filter((pos) => pos.x === linePos.x && pos.y === linePos.y)
 }
 
 function setText(val) {
@@ -150,12 +136,6 @@ function addLine(txt, size = 50, color = "white", strokeColor = "black") {
   markLine(line)
 }
 
-function resizeCanvas() {
-  var elContainer = document.querySelector(".canvas-container")
-  gCanvas.width = elContainer.offsetWidth
-  gCanvas.height = 500
-}
-
 function resetSelectedLine(idx = 0) {
   // gMeme.lines[idx].isSelected = false
   // gMeme.selectedLineIdx = -1
@@ -178,16 +158,19 @@ function addEmoji(strEmoji) {
   addLine(strEmoji)
 }
 
-function saveMemesToStorage(meme) {
-  var savedMemes = loadFromStorage(STORAGE_KEY)
-  if (!savedMemes || savedMemes.length === null) {
-    savedMemes = [meme]
-    saveToStorage(STORAGE_KEY, savedMemes)
-  }
-  savedMemes.push(meme)
-  saveToStorage(STORAGE_KEY, savedMemes)
+function saveMeme() {
+  const data = gCanvas.toDataURL()
+  gSaveMemes.push({ dataUrl: data, id: gSaveMemes.length + 1 })
+  console.log(gSaveMemes)
+  saveToStorage(STORAGE_KEY, gSaveMemes)
 }
 
-function getSavedMemes() {
-  return loadFromStorage(STORAGE_KEY)
+function updateGMemes() {
+  var saveMemes = loadFromStorage(STORAGE_KEY)
+  console.log(saveMemes)
+  if (!saveMemes || !saveMemes.length) {
+    saveMemes = []
+  }
+  gSaveMemes = saveMemes
+  saveToStorage(STORAGE_KEY, gSaveMemes)
 }

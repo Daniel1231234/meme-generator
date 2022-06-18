@@ -1,16 +1,20 @@
 "use strict"
 
 var gCurrImg
-var gSavedMemes
 
 function init() {
   console.log("hi")
   renderGallery()
   renderKeywords()
+  renderSaveMemes()
+  createCanvas()
 }
 
 function renderGallery() {
   const images = getImages()
+  var uploadHTML = `  <label onchange="onImageInput(event)" class="fa-solid fa-upload gallery-img upload-img">
+  <input name="uploadimg" type="file" class="input-upload" />
+</label>`
   var strHTMLs = images.map(
     (img) =>
       `<img src='${img.url}'
@@ -19,7 +23,8 @@ function renderGallery() {
          class="gallery-img"
         >`
   )
-  document.querySelector(".img-container").innerHTML = strHTMLs.join("")
+  document.querySelector(".img-container").innerHTML = uploadHTML
+  document.querySelector(".img-container").innerHTML += strHTMLs.join("")
 }
 
 function renderKeywords() {
@@ -29,15 +34,36 @@ function renderKeywords() {
     <button data-key="all" onclick="onFilterImgs(this.dataset.key)">All</button>`
   for (let key in keyWords) {
     strHTML += `<button class="select-key" data-key="${key}"
-     onclick="onFilterImgs(this.dataset.key)"> ${key} </button> 
+     onclick="onFilterImgs(this.dataset.key); onFontSizeUpKeyword(this.dataset.key)"
+      style="font-size: ${keyWords[key] + 6}px;"> ${key} </button> 
       `
   }
   document.querySelector(".keywords-container").innerHTML = strHTML
 }
 
-// function onImageInput(ev) {
-//   loadImageFromInput(ev, renderMeme)
-// }
+function onFontSizeUpKeyword(keyword) {
+  sizeUp(keyword)
+
+  renderGallery()
+  renderKeywords()
+}
+
+function onImageInput(ev) {
+  loadImageFromInput(ev, onInitMeme)
+  onMoveToEditor()
+}
+
+function loadImageFromInput(ev, onImageReady) {
+  let reader = new FileReader()
+
+  reader.onload = (event) => {
+    let img = new Image()
+    img.onload = onImageReady.bind(null, img)
+    img.src = event.target.result
+    gCurrImg = img
+  }
+  reader.readAsDataURL(ev.target.files[0])
+}
 
 function onClickImg(imgId) {
   setSelectedImg(imgId)
@@ -61,7 +87,6 @@ function onMoveToEditor() {
   renderEmojies()
 }
 
-//TODO: fix filter search for each letter
 function onFilterImgs(val) {
   setFilterImg(val)
   renderGallery()
@@ -81,11 +106,11 @@ function onGenerateRanMeme() {
   // var randImg = getImages()[randImgIdx]
   // console.log(randImg)
   onClickImg(randImgIdx)
-
   getRnadomLine()
 }
 
 function moveToSaved() {
+  renderSaveMemes()
   const mainContent = document.querySelector("main")
   const editArea = document.querySelector(".editor")
   const savedArea = document.querySelector(".saved-container")
@@ -95,22 +120,33 @@ function moveToSaved() {
   savedArea.style.display = "block"
 }
 
-function renderSavedMemes() {
-  const savedMemes = getSavedMemes()
-  if (!savedMemes) return
-
-  var strHTMLs = savedMemes.map((meme, idx) => {
-    ;`<img class="gallery-img" src=${meme} alt="" />
-    <button class="fa fa-solid fa-trash-can delete-saved-btn" onclick="removeMemeFromStorage(${idx})">
-    </button>
-  `
+function renderSaveMemes() {
+  updateGMemes()
+  var imgsMemes = gSaveMemes
+  var strImgsHtml = imgsMemes.map((img) => {
+    const imgContent = img.dataUrl
+    return `
+        <a href="#" onclick="onSaveMemesClick(this,${img.id})">
+        <img class='memes-items' src="${imgContent}"  alt="">
+        <button onclick="onDeleteSavedMeme(event,${img.id})">Delete meme</button>
+        </a>`
   })
-  document.querySelector(".saved-memes-container").innerHTML = strHTMLs.join("")
+  var elMemes = document.querySelector(".saved-memes-container")
+
+  elMemes.innerHTML = strImgsHtml.join("")
 }
 
-function removeMemeFromStorage(idx) {
-  const savedMemes = getSavedMemes()
-  savedMemes.splice(idx, 1)
-  saveToStorage(STORAGE_KEY, savedMemes)
-  renderSaved()
+function onDeleteSavedMeme(ev, id) {
+  ev.preventDefault()
+  deleteMeme(id)
+  renderSaveMemes()
 }
+
+// function onSaveMemesClick1(ellink, savedMemesId) {
+//   var savedMemes = gSaveMemes
+//   var currSavedMemes = savedMemes.find((memes) => {
+//     return memes.id === savedMemesId
+//   })
+//   ellink.href = currSavedMemes.dataUrl
+//   ellink.download = "my-saved-canvas"
+// }

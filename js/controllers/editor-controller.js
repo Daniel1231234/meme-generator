@@ -1,14 +1,11 @@
 "use strict"
 
-var gCanvas
-var gCtx
-var gStartPos
 var gIsClicked
-
+var gSaveMemes = []
 const gTouchEvs = ["touchstart", "touchmove", "touchend"]
 
 function onInitMeme(img, lineIdx) {
-  setSelectedLine(lineIdx)
+  setSelectedLine((lineIdx = 0))
   createCanvas()
   resizeCanvas()
   onSetLinePos()
@@ -68,93 +65,6 @@ function onChangeColor(color) {
   renderMeme(gCurrImg)
 }
 
-// canvas functions
-function onMove(ev) {
-  if (gIsClicked) {
-    const pos = getEvPos(ev)
-    const diffX = pos.x - gStartPos.x
-    const diffY = pos.y - gStartPos.y
-    moveLine(diffX, diffY)
-    renderMeme(gCurrImg)
-    markLine(gMeme.lines[gMeme.selectedLineIdx])
-    gStartPos = pos
-  }
-}
-
-function onDown(ev) {
-  // console.log(ev.offsetX, ev.offsetY)
-  const pos = getEvPos(ev)
-  console.log(pos)
-  const isClicked = isLineClicked(pos)
-  const lines = getMeme().lines
-  if (isClicked) {
-    setSelectedLine(lines.indexOf(isClicked))
-    gStartPos = pos
-    gIsClicked = true
-    const diffX = pos.x - gStartPos.x
-    const diffY = pos.y - gStartPos.y
-    moveLine(diffX, diffY)
-    renderMeme(gCurrImg)
-    // markLine(gMeme.lines[gMeme.selectedLineIdx])
-
-    document.querySelector(".canvas-container").style.cursor = "grabbing"
-  } else {
-    resetSelectedLine()
-    renderMeme(gCurrImg)
-  }
-}
-
-function onUp(ev) {
-  gIsClicked = false
-  document.querySelector(".canvas-container").style.cursor = "grab"
-}
-
-function getEvPos(ev) {
-  var pos = {
-    x: ev.offsetX,
-    y: ev.offsetY,
-  }
-  if (gTouchEvs.includes(ev.type)) {
-    ev.preventDefault()
-    ev = ev.changedTouches[0]
-    pos = {
-      x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
-      y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
-    }
-  }
-  return pos
-}
-
-function addMouseListeners() {
-  gCanvas.addEventListener("mousemove", onMove)
-  gCanvas.addEventListener("mousedown", onDown)
-  gCanvas.addEventListener("mouseup", onUp)
-}
-
-function addListeners() {
-  addMouseListeners()
-  addTouchListeners()
-  // Resizes the canvas and renders it as window size changes
-  window.addEventListener("resize", () => {
-    resizeCanvas()
-    renderMeme(gCurrImg)
-  })
-}
-
-function addTouchListeners() {
-  gCanvas.addEventListener("touchmove", onMove)
-  gCanvas.addEventListener("touchstart", onDown)
-  gCanvas.addEventListener("touchend", onUp)
-}
-
-function renderMeme(img) {
-  gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
-  const meme = getMeme()
-  const lines = meme.lines
-  lines.forEach((line) => drawLine(line))
-  markLine(gMeme.lines[gMeme.selectedLineIdx])
-}
-
 function onSetLinePos() {
   const meme = getMeme()
   // console.log(meme)
@@ -176,6 +86,13 @@ function onDownloadMeme(elBtn) {
   elBtn.href = imgContent
 }
 
+function onSave() {
+  saveMeme()
+  renderSaveMemes()
+
+  // moveToSaved()
+}
+
 function onShareMeme() {
   const imgDataUrl = gCanvas.toDataURL("image/jpeg")
   function onSuccess(uploadedImgUrl) {
@@ -189,16 +106,6 @@ function onShareMeme() {
     </a>`
   }
   doUploadImg(imgDataUrl, onSuccess)
-}
-
-function onSave() {
-  resetSelectedLine()
-  renderMeme(gCurrImg)
-  const meme = gCanvas.toDataURL("image/jpeg")
-  console.log(meme)
-  saveMemesToStorage(meme)
-  renderSavedMemes()
-  moveToSaved()
 }
 
 function doUploadImg(imgDataUrl, onSuccess) {
@@ -232,7 +139,7 @@ function renderEmojies() {
     `
   )
   document.querySelector(".emojis-area").innerHTML = emojisHTMLs.join("")
-  document.querySelector(".emojis-area").innerHTML += strPaddles
+  // document.querySelector(".emojis-area").innerHTML += strPaddles
 }
 
 function onAddEmoji(elBtn, emoji) {

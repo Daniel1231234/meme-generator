@@ -2,6 +2,18 @@
 
 var gFilterBy
 
+var gKeywordSearchCountMap = {
+  funny: 9,
+  politics: 3,
+  celebrity: 9,
+  cute: 6,
+  animal: 3,
+  kiss: 2,
+  sleep: 2,
+  men: 8,
+  kids: 3,
+  toystory: 1,
+}
 const memesSentences = [
   "I never eat falafel",
   "DOMS DOMS EVERYWHERE",
@@ -19,19 +31,6 @@ const memesSentences = [
   "JS what is this?",
   "Write hello world , add to cv 7 years experienced",
 ]
-
-var gKeywordSearchCountMap = {
-  funny: 9,
-  politics: 3,
-  celebrity: 9,
-  cute: 6,
-  animal: 3,
-  kiss: 2,
-  sleep: 2,
-  men: 8,
-  kids: 3,
-  toystory: 1,
-}
 
 var gImgs = [
   {
@@ -127,7 +126,7 @@ var gImgs = [
   },
 ]
 
-var gFonts = ["impact", "Ariel", "David", "Cursive", "Verdana"]
+// var gFonts = ["impact", "Ariel", "David", "Cursive", "Verdana"]
 
 function getImages() {
   // const keyWords = gImgs.filter((img) => img.keywords)
@@ -163,6 +162,11 @@ function getKeyWords() {
   return gKeywordSearchCountMap
 }
 
+function sizeUp(word) {
+  console.log(word)
+  gKeywordSearchCountMap[word]++
+}
+
 // function loadImageFromInput(ev, onImageReady) {
 //   var reader = new FileReader()
 //   reader.onload = function (event) {
@@ -195,4 +199,10 @@ function getRandArrStr(arr) {
   var idx = getRndomInt(idxStart, idxEnd)
 
   return arr[idx]
+}
+
+function deleteMeme(deletedMemeIdx) {
+  var deletedMeme = gSaveMemes.findIndex((meme) => meme.id === deletedMemeIdx)
+  gSaveMemes.splice(deletedMeme, 1)
+  saveToStorage(STORAGE_KEY, gSaveMemes)
 }
