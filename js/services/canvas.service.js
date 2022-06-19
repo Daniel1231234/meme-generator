@@ -6,6 +6,7 @@ var gStartPos
 
 function drawLine(line) {
   gCtx.textBaseline = "middle"
+  gCtx.lineWidth = 2
   gCtx.textAlign = line.align
   gCtx.strokeStyle = line.strokeColor
   gCtx.fillStyle = line.color
@@ -13,6 +14,8 @@ function drawLine(line) {
 
   gCtx.fillText(line.txt, line.pos.x, line.pos.y)
   gCtx.strokeText(line.txt, line.pos.x, line.pos.y)
+
+  markLine(gMeme.lines[gMeme.selectedLineIdx])
 }
 
 function setLinePos(linePos) {
@@ -22,7 +25,7 @@ function setLinePos(linePos) {
 function resizeCanvas() {
   var elContainer = document.querySelector(".canvas-container")
   gCanvas.width = elContainer.offsetWidth
-  gCanvas.height = 500
+  gCanvas.height = elContainer.offsetHeight
 }
 
 function onMove(ev) {
@@ -31,16 +34,15 @@ function onMove(ev) {
     const diffX = pos.x - gStartPos.x
     const diffY = pos.y - gStartPos.y
     moveLine(diffX, diffY)
+    // markLine(gMeme.lines[gMeme.selectedLineIdx])
     renderMeme(gCurrImg)
-    markLine(gMeme.lines[gMeme.selectedLineIdx])
     gStartPos = pos
   }
 }
 
 function onDown(ev) {
-  // console.log(ev.offsetX, ev.offsetY)
   const pos = getEvPos(ev)
-  console.log(pos)
+  // console.log(pos)
   const isClicked = isLineClicked(pos)
   const lines = getMeme().lines
   if (isClicked) {
@@ -90,7 +92,6 @@ function addMouseListeners() {
 function addListeners() {
   addMouseListeners()
   addTouchListeners()
-  // Resizes the canvas and renders it as window size changes
   window.addEventListener("resize", () => {
     resizeCanvas()
     renderMeme(gCurrImg)
@@ -101,12 +102,4 @@ function addTouchListeners() {
   gCanvas.addEventListener("touchmove", onMove)
   gCanvas.addEventListener("touchstart", onDown)
   gCanvas.addEventListener("touchend", onUp)
-}
-
-function renderMeme(img) {
-  gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
-  const meme = getMeme()
-  const lines = meme.lines
-  lines.forEach((line) => drawLine(line))
-  markLine(gMeme.lines[gMeme.selectedLineIdx])
 }

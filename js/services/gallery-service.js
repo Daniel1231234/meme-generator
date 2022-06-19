@@ -129,14 +129,11 @@ var gImgs = [
 // var gFonts = ["impact", "Ariel", "David", "Cursive", "Verdana"]
 
 function getImages() {
-  // const keyWords = gImgs.filter((img) => img.keywords)
+  var imgs = gImgs
   if (gFilterBy) {
-    // var filterImgs = []
-    let imgs = gImgs.filter((img) => img.keywords.includes(gFilterBy))
-    // filterImgs.push(img)
-    return imgs
+    imgs = imgs.filter((img) => img.keywords.join("").includes(gFilterBy))
   }
-  return gImgs
+  return imgs
 }
 
 function setSelectedImg(id) {
@@ -182,15 +179,27 @@ function getRandomImgIdx() {
   return id
 }
 
-function getRnadomLine() {
-  var randLineTxt = getRandArrStr(memesSentences)
-  // var randFont = getArrStr(gFonts)
-  var randColor = getRandomColor()
-  var randColorStroke = getRandomColor()
-  var randSize = getRndomInt(30, 70)
-  console.log(randLineTxt, randSize, randColor, randColor)
+function getRandomLine() {
+  const line = {}
 
-  addLine(randLineTxt, randSize, randColor, randColorStroke)
+  line.color = getRandomColor()
+  line.txt = getRandArrStr(memesSentences)
+  line.strokeColor = getRandomColor()
+  line.size = getRndomInt(30, 70)
+  line.align = "center"
+  line.fontFamily = "impact"
+  line.isSelected = true
+  line.pos = { x: gCanvas.width / 2, y: gCanvas.height / 2 }
+
+  return line
+
+  // var randLineTxt = getRandArrStr(memesSentences)
+  // var randColor = getRandomColor()
+  // var randColorStroke = getRandomColor()
+  // var randSize = getRndomInt(30, 70)
+  // console.log(randLineTxt, randSize, randColor, randColor)
+
+  // addLine(randLineTxt, randSize, randColor, randColorStroke)
 }
 
 function getRandArrStr(arr) {

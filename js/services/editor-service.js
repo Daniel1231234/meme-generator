@@ -1,13 +1,11 @@
 "use strict"
 
 const STORAGE_KEY = "savedMemesDB"
-var gLineMarkSize
 var gEmojies = ["😎", "👊", "🎆", "🌈", "💩", "❤", "🔞", "💲", "🍕", "💃🏾"]
 var gMeme
 
-createMeme()
-
-function createMeme() {
+//TODO:
+function createMeme1() {
   if (!gMeme) {
     var meme = {
       selectedImgId: 1,
@@ -31,6 +29,25 @@ function createMeme() {
   return gMeme
 }
 
+function createMeme() {
+  gMeme = {
+    selectedImgId: 1,
+    selectedLineIdx: 0,
+    lines: [
+      {
+        txt: "Example",
+        size: 50,
+        align: "center",
+        color: "white",
+        strokeColor: "black",
+        fontFamily: "impact",
+        isSelected: false,
+        pos: {},
+      },
+    ],
+  }
+}
+
 function moveLine(diffX, diffY) {
   gMeme.lines[gMeme.selectedLineIdx].pos.x += diffX
   gMeme.lines[gMeme.selectedLineIdx].pos.y += diffY
@@ -42,9 +59,10 @@ function switchLine(toLineIdx = gMeme.selectedLineIdx + 1) {
 }
 
 function markLine(line) {
+  // console.log(line)
   if (!line) return
   const lineWidth = gCtx.measureText(line.txt).width + line.size
-  const lineHeight = line.size + 40
+  const lineHeight = line.size + line.size / 2
   gCtx.strokeStyle = "yellow"
   gCtx.strokeRect(
     line.pos.x - lineWidth / 2,
@@ -52,7 +70,6 @@ function markLine(line) {
     lineWidth,
     lineHeight
   )
-  gLineMarkSize = { lineWidth, lineHeight }
 }
 
 function getSelectedImg() {
@@ -68,29 +85,25 @@ function getMeme() {
 
 function isLineClicked(clickedPos) {
   const clickedLine = gMeme.lines.find((line) => {
+    const diffX = (clickedPos.x - line.pos.x) ** 2
+    const diffY = (clickedPos.y - line.pos.y) ** 2
     if (
-      Math.sqrt(
-        (clickedPos.x - line.pos.x) ** 2 + (clickedPos.y - line.pos.y) ** 2
-      ) <=
-      gCtx.measureText(line.txt).width / 2
+      Math.sqrt(diffX + diffY) <= gCtx.measureText(line.txt).width / 2 &&
+      Math.sqrt(diffX + diffY) <= line.pos.y / 2
     ) {
-      console.log("line pos: ", line.pos)
       return line
     }
   })
-  // console.log(clickedLine)
+
   return clickedLine
 }
 
-function setSelectedLine(idx = 0) {
-  // console.log(idx)
-  // resetSelectedLine()
+function setSelectedLine(idx) {
   gMeme.lines[idx].isSelected = true
   gMeme.selectedLineIdx = idx
 }
 
 function setText(val) {
-  console.log(val)
   gMeme.lines[gMeme.selectedLineIdx].txt = val
 }
 
@@ -98,8 +111,14 @@ function changeTextSize(num) {
   gMeme.lines[gMeme.selectedLineIdx].size += num
 }
 
-function changeTextAlign(align) {
-  gMeme.lines[gMeme.selectedLineIdx].align = align
+function changeTextAlign(choseAlign) {
+  const line = gMeme.lines[gMeme.selectedLineIdx]
+
+  line.align = choseAlign
+
+  if (choseAlign === "center") line.pos.x = gCanvas.width / 2
+  if (choseAlign === "left") line.pos.x = 40
+  if (choseAlign === "right") line.pos.x = gCanvas.width - 40
 }
 
 function changeFontFamily(font) {
@@ -167,7 +186,7 @@ function saveMeme() {
 
 function updateGMemes() {
   var saveMemes = loadFromStorage(STORAGE_KEY)
-  console.log(saveMemes)
+
   if (!saveMemes || !saveMemes.length) {
     saveMemes = []
   }

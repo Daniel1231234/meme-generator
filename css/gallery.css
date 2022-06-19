@@ -98,43 +98,26 @@
     display: flex;
 }
 
-/* .btn-flexible {
-    font-size: 1.3rem;
-    border: none;
-    outline: none;
-    background-color: inherit;
-    color: white;
-    margin-bottom: 30px;
-    font-family: poppins-light;
-}
-
-.btn-flexible:hover {
-    color: yellow;
-} */
-
-/* .nav-btn-choose {
-    /* position: relative; */
-/* top: 0; */
-/* left: 40%; */
-
-
 nav ul li {
     --c: rgb(44 181 108);
     color: var(--c);
     font-size: 2rem;
     border: 0.3em solid var(--c);
     border-radius: 0.5em;
-    width: 7em;
+    width: 8em;
     height: 2.5em;
-    text-transform: uppercase;
     font-weight: bold;
-    letter-spacing: 0.5px;
     text-align: center;
     line-height: 3em;
     position: relative;
     overflow: hidden;
     z-index: 1;
     transition: 0.5s;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 nav ul li span {
@@ -208,8 +191,12 @@ nav ul li span:nth-child(4) {
     display: none;
 }
 
-
 .upload-img:hover {
     font-size: 4rem;
     background-color: #303133;
+}
+
+.img-container img:hover {
+    cursor: pointer;
+    opacity: 0.8;
 }

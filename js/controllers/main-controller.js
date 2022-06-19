@@ -7,7 +7,7 @@ function init() {
   renderGallery()
   renderKeywords()
   renderSaveMemes()
-  createCanvas()
+  // createCanvas()
 }
 
 function renderGallery() {
@@ -66,6 +66,7 @@ function loadImageFromInput(ev, onImageReady) {
 }
 
 function onClickImg(imgId) {
+  createMeme()
   setSelectedImg(imgId)
 
   var img = new Image()
@@ -102,11 +103,20 @@ function onToggleMenu() {
 }
 
 function onGenerateRanMeme() {
+  createCanvas()
+  onMoveToEditor()
+  createMeme()
+
   var randImgIdx = getRandomImgIdx()
-  // var randImg = getImages()[randImgIdx]
-  // console.log(randImg)
-  onClickImg(randImgIdx)
-  getRnadomLine()
+  var img = new Image()
+  img.src = `images/${randImgIdx}.jpg`
+  img.onload = () => {
+    gCurrImg = img
+  }
+  setSelectedImg(img.Id)
+  const randomLine = getRandomLine()
+  addLine(randomLine)
+  onInitMeme(img)
 }
 
 function moveToSaved() {
@@ -142,11 +152,11 @@ function onDeleteSavedMeme(ev, id) {
   renderSaveMemes()
 }
 
-// function onSaveMemesClick1(ellink, savedMemesId) {
-//   var savedMemes = gSaveMemes
-//   var currSavedMemes = savedMemes.find((memes) => {
-//     return memes.id === savedMemesId
-//   })
-//   ellink.href = currSavedMemes.dataUrl
-//   ellink.download = "my-saved-canvas"
-// }
+function onSaveMemesClick1(ellink, savedMemesId) {
+  var savedMemes = gSaveMemes
+  var currSavedMemes = savedMemes.find((memes) => {
+    return memes.id === savedMemesId
+  })
+  ellink.href = currSavedMemes.dataUrl
+  ellink.download = "my-saved-canvas"
+}

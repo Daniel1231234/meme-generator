@@ -3,7 +3,7 @@
         width: 100%;
         margin: 0;
         border-radius: 0;
-        height: 13vh;
+        height: 14vh;
     }
 
     .search-input {
@@ -23,14 +23,11 @@
         gap: 10px;
     }
 
-
-
     .main-content {
         width: 100%;
         margin-top: 12px;
         border-radius: 19px;
         margin-inline-start: auto;
-
     }
 
     .btn-flexible {
@@ -38,14 +35,13 @@
         font-size: 1rem;
         top: 4vh;
         right: 2vh;
+        width: auto;
     }
 
     .main-layout {
         margin-inline-start: 0;
         margin-inline-end: 0;
-        /* padding-left: 1.6rem;
-        padding-right: 1.6rem; 
-         width: 100%;  */
+
     }
 
     .img-container {
@@ -61,7 +57,6 @@
         justify-content: center;
     }
 
-
     .canvas-container {
         width: 300px;
         height: 300px;
@@ -72,11 +67,11 @@
         height: 100%;
     }
 
-
     .editor {
         flex-direction: column;
         margin-top: 1rem;
         padding-bottom: 16px;
+        border-radius: 5px;
     }
 
     .edit-area {
@@ -105,7 +100,7 @@
 
     .text-edit {
         margin-top: 5px;
-        background-color: inherit;
+        /* background-color: inherit; */
         gap: 1rem;
     }
 
@@ -122,7 +117,7 @@
     .emojis-area {
         /* height: 100px; */
         margin-top: 10px;
-        background-color: inherit;
+        /* background-color: inherit; */
         box-shadow: none;
 
     }
@@ -144,32 +139,10 @@
         height: 60px;
     }
 
-
-
-
-
-
-    /* 
-    .editor {
-        flex-direction: column;
-        margin-top: 10px;
-        align-items: center;
-        justify-content: space-between;
-    } */
-
-    /* canvas {
-        width: 400px;
-    }
-
-    .edit-area {
-        width: 400px;
-        margin-top: 3vh;
-    } */
-
 }
 
 @media (min-width:614px) {
-    .canvas-container {
+    /* .canvas-container {
         width: 400px;
         height: 400px;
     }
@@ -177,17 +150,19 @@
     canvas {
         width: 100%;
         height: 100%;
-    }
+    } */
 
     .editor {
         flex-direction: row;
-        margin-left: 1rem;
+        margin-top: 1rem;
+        margin-inline-start: 40px;
+        margin-inline-end: 40px;
     }
 
     .edit-area {
-        width: 300px;
-        height: 400px;
-        margin: auto 10px auto 10px;
+        width: 350px;
+        height: 500px;
+        /* margin: auto 20px auto 20px; */
         box-shadow: none;
         justify-content: space-between;
         align-items: center;
@@ -270,10 +245,23 @@
 
     .btn-flexible {
         font-size: 1rem;
+
     }
 
+    .canvas-container {
+        width: 500px;
+        height: 500px;
+    }
 
+    canvas {
+        width: 100%;
+        height: 100%;
+    }
+
+    .editor {
+        height: 90vh;
+    }
 
 }
 
-@media (min-width: 1100px) {}
+/* @media (min-width:960px)  */

@@ -13,6 +13,14 @@ function onInitMeme(img, lineIdx) {
   renderMeme(img)
 }
 
+function renderMeme(img) {
+  gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
+  const meme = getMeme()
+  const lines = meme.lines
+  lines.forEach((line) => drawLine(line))
+  // markLine(gMeme.lines[gMeme.selectedLineIdx])
+}
+
 //get text from user for meme's lines
 function onSetText(val) {
   setText(val)
@@ -38,7 +46,6 @@ function onDeleteLine() {
 // manipulate text
 function onChangeTextSize(num) {
   changeTextSize(num)
-
   renderMeme(gCurrImg)
 }
 
@@ -67,6 +74,9 @@ function onChangeColor(color) {
 
 function onSetLinePos() {
   const meme = getMeme()
+
+  //! helper doesnt work CR
+  // let linePos = meme.lines[meme.selectedLineIdx].pos
   // console.log(meme)
   meme.lines[meme.selectedLineIdx].pos = {
     x: gCanvas.width / 2,
@@ -90,7 +100,7 @@ function onSave() {
   saveMeme()
   renderSaveMemes()
 
-  // moveToSaved()
+  moveToSaved()
 }
 
 function onShareMeme() {
