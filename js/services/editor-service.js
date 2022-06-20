@@ -152,7 +152,7 @@ function addLine(txt, size = 50, color = "white", strokeColor = "black") {
   gMeme.lines.push(line)
   gMeme.selectedLineIdx = gMeme.lines.length - 1
   drawLine(line)
-  markLine(line)
+  // markLine(line)
 }
 
 function resetSelectedLine(idx = 0) {

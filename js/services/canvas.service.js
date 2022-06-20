@@ -15,7 +15,7 @@ function drawLine(line) {
   gCtx.fillText(line.txt, line.pos.x, line.pos.y)
   gCtx.strokeText(line.txt, line.pos.x, line.pos.y)
 
-  markLine(gMeme.lines[gMeme.selectedLineIdx])
+  // markLine(gMeme.lines[gMeme.selectedLineIdx])
 }
 
 function setLinePos(linePos) {
@@ -53,7 +53,7 @@ function onDown(ev) {
     const diffY = pos.y - gStartPos.y
     moveLine(diffX, diffY)
     renderMeme(gCurrImg)
-    // markLine(gMeme.lines[gMeme.selectedLineIdx])
+    markLine(gMeme.lines[gMeme.selectedLineIdx])
 
     document.querySelector(".canvas-container").style.cursor = "grabbing"
   } else {

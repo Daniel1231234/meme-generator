@@ -18,7 +18,7 @@ function renderMeme(img) {
   const meme = getMeme()
   const lines = meme.lines
   lines.forEach((line) => drawLine(line))
-  // markLine(gMeme.lines[gMeme.selectedLineIdx])
+  markLine(gMeme.lines[gMeme.selectedLineIdx])
 }
 
 //get text from user for meme's lines

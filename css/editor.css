@@ -52,8 +52,6 @@ canvas {
     border-radius: 12px;
     cursor: pointer;
     border: none;
-    width: 60px;
-    height: 60px;
     transition: 0.3s;
 }
 
